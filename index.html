@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Evero HR people operations dashboard" />
+    <title>Evero HR — HR Dashboard</title>
+    <script>
+      tailwind = {
+        theme: {
+          extend: {
+            colors: {
+              ink: 'var(--color-ink)',
+              muted: 'var(--color-muted)',
+              orange: 'var(--color-orange)',
+              surface: 'var(--color-surface)',
+              line: 'var(--color-line)'
+            },
+            fontFamily: { sans: ['var(--font-family-sans)'] }
+          }
+        }
+      };
+    </script>
+    <script defer src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-surface text-ink antialiased">
+    <div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Loading dashboard">
+      <img class="page-loader-logo" src="evero-1.svg" alt="Evero HR" />
+      <div class="page-loader-track" aria-hidden="true"><span></span></div>
+    </div>
+    <div class="app-shell min-h-screen">
+      <div class="mobile-scrim" data-sidebar-close></div>
+
+      <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+        <div class="sidebar-brand">
+          <a href="#" class="brand-link" aria-label="Evero HR home">
+            <img class="brand-logo" src="evero-1.svg" alt="Evero HR" />
+          </a>
+          <button class="icon-button sidebar-close" type="button" data-sidebar-close aria-label="Close navigation">
+            <i data-lucide="x" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav">
+          <p class="nav-label">Workspace</p>
+          <a class="nav-item active" href="#overview" data-nav="Overview">
+            <span class="nav-icon"><i data-lucide="layout-dashboard" aria-hidden="true"></i></span>
+            <span>Overview</span>
+          </a>
+          <a class="nav-item" href="#employees" data-nav="Employees">
+            <span class="nav-icon"><i data-lucide="users-round" aria-hidden="true"></i></span>
+            <span class="flex-1">Employees</span><span class="nav-chevron"><i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </a>
+          <a class="nav-item" href="#recruitment" data-nav="Recruitment">
+            <span class="nav-icon"><i data-lucide="briefcase-business" aria-hidden="true"></i></span>
+            <span class="flex-1">Recruitment</span><span class="notification-badge">42</span>
+          </a>
+          <a class="nav-item" href="#performance" data-nav="Performance">
+            <span class="nav-icon"><i data-lucide="chart-line" aria-hidden="true"></i></span>
+            <span class="flex-1">Performance</span><span class="nav-chevron"><i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </a>
+          <a class="nav-item" href="#payroll" data-nav="Payroll">
+            <span class="nav-icon"><i data-lucide="wallet-cards" aria-hidden="true"></i></span>
+            <span class="flex-1">Payroll</span><span class="nav-chevron"><i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </a>
+          <a class="nav-item" href="#hours" data-nav="Working Hours">
+            <span class="nav-icon"><i data-lucide="clock-3" aria-hidden="true"></i></span>
+            <span>Working Hours</span>
+          </a>
+          <a class="nav-item" href="#benefits" data-nav="Benefits">
+            <span class="nav-icon"><i data-lucide="heart" aria-hidden="true"></i></span>
+            <span>Benefits</span>
+          </a>
+          <a class="nav-item" href="#analytics" data-nav="Workforce Analytics">
+            <span class="nav-icon"><i data-lucide="chart-column" aria-hidden="true"></i></span>
+            <span>Workforce Analytics</span>
+          </a>
+          <a class="nav-item" href="#training" data-nav="Training & Dev">
+            <span class="nav-icon"><i data-lucide="graduation-cap" aria-hidden="true"></i></span>
+            <span>Training &amp; Dev</span>
+          </a>
+          <a class="nav-item" href="#reports" data-nav="Reports">
+            <span class="nav-icon"><i data-lucide="file-text" aria-hidden="true"></i></span>
+            <span>Reports</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a class="nav-item" href="#settings" data-nav="Settings">
+            <span class="nav-icon"><i data-lucide="settings-2" aria-hidden="true"></i></span>
+            <span>Settings</span>
+          </a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button menu-toggle" type="button" data-sidebar-open aria-label="Open navigation"><i data-lucide="menu" aria-hidden="true"></i></button>
+            <label class="topbar-search" for="employeeSearch">
+              <i data-lucide="search" aria-hidden="true"></i>
+              <input id="employeeSearch" type="search" placeholder="Search employees, departments..." autocomplete="off" />
+              <kbd>⌘K</kbd>
+            </label>
+          </div>
+          <div class="topbar-spacer"></div>
+          <div class="topbar-actions">
+            <button class="icon-button notification-button" aria-label="Notifications"><i data-lucide="bell" aria-hidden="true"></i><span class="notification-count">3</span></button>
+            <div class="topbar-divider"></div>
+            <div class="topbar-user"><img class="avatar profile-avatar" src="avatar.png" alt="Sarah Chen" /><div class="hidden md:block"><p class="profile-name">Sarah Chen</p><p class="profile-role">HR Manager</p></div><i class="chevron-icon hidden md:block" data-lucide="chevron-down" aria-hidden="true"></i></div>
+          </div>
+        </header>
+
+        <div class="page-container">
+          <section class="analytics-overview" aria-labelledby="analyticsTitle">
+            <div class="analytics-heading">
+              <div><h1 id="analyticsTitle">HR Analytics Overview</h1><p>Workforce snapshot for Q4 2024 · Last updated Nov 5, 01:17 PM</p></div>
+              <div class="heading-actions"><button class="button button-secondary" type="button" id="exportButton"><i data-lucide="download" aria-hidden="true"></i><span>Export</span></button><button class="button analytics-primary" type="button" id="addEmployeeButton"><i data-lucide="plus" aria-hidden="true"></i><span>Add Employee</span></button></div>
+            </div>
+
+            <div class="analytics-filters" aria-label="Analytics filters">
+              <label class="filter-field"><span>DEPARTMENT</span><select id="departmentFilter"><option>All Departments</option><option>Engineering</option><option>Design</option><option>Marketing</option><option>Operations</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
+              <label class="filter-field"><span>JOB LEVEL</span><select id="levelFilter"><option>All Levels</option><option>Executive</option><option>Senior</option><option>Mid-level</option><option>Entry-level</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
+              <label class="filter-field"><span>EMPLOYMENT STATUS</span><select id="statusFilter"><option>All Status</option><option>Active</option><option>On leave</option><option>Probation</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></label>
+              <label class="salary-filter"><span><strong>SALARY RANGE</strong><b id="salaryValue">$40k – $300k+</b></span><input id="salaryFilter" type="range" min="40" max="300" value="300" aria-label="Salary range" /></label>
+            </div>
+
+            <div class="analytics-cards" aria-label="HR analytics metrics">
+              <article class="analytics-card"><div class="analytics-card-heading"><span>Total Employees</span><i data-lucide="users-round" aria-hidden="true"></i></div><div class="metric-inner"><strong>1,284</strong><div class="metric-meta"><span class="metric-positive">+4.2%</span><span>vs last month</span></div><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i class="highlight"></i><i></i><i></i></div></div></article>
+              <article class="analytics-card"><div class="analytics-card-heading"><span>Departments</span><i data-lucide="building-2" aria-hidden="true"></i></div><div class="metric-inner"><strong>12</strong><div class="metric-meta"><span class="metric-positive">+2</span><span>vs last quarter</span></div><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i class="highlight"></i><i></i><i></i></div></div></article>
+              <article class="analytics-card"><div class="analytics-card-heading"><span>Today Present</span><i data-lucide="circle-check-big" aria-hidden="true"></i></div><div class="metric-inner"><strong>1,021</strong><div class="metric-meta"><span class="metric-positive">+2.1%</span><span>vs yesterday</span></div><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i class="highlight"></i><i></i><i></i></div></div></article>
+              <article class="analytics-card"><div class="analytics-card-heading"><span>Absent Today</span><i data-lucide="calendar-x-2" aria-hidden="true"></i></div><div class="metric-inner"><strong>47</strong><div class="metric-meta"><span class="metric-negative">-8.3%</span><span>vs yesterday</span></div><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i class="highlight"></i><i></i><i></i></div></div></article>
+              <article class="analytics-card"><div class="analytics-card-heading"><span>Open Positions</span><i data-lucide="briefcase-business" aria-hidden="true"></i></div><div class="metric-inner"><strong>34</strong><div class="metric-meta"><span class="metric-positive">+8</span><span>this month</span></div><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i class="highlight"></i><i></i><i></i></div></div></article>
+            </div>
+          </section>
+
+          <section class="content-grid">
+            <article class="panel working-hours-panel"><div class="working-hours-header"><div><h2>Average Working Hours</h2><p>Monthly</p></div><div class="hours-controls"><div class="hours-toggle" role="group" aria-label="Working hours period"><button class="active" type="button" data-hours-period="Monthly">Monthly</button><button type="button" data-hours-period="Weekly">Weekly</button></div><div class="hours-year"><select id="hoursYear" aria-label="Working hours year"><option>2024</option><option>2023</option><option>2022</option></select><i data-lucide="chevron-down" aria-hidden="true"></i></div><button class="more-button" aria-label="More working hours options"><i data-lucide="ellipsis" aria-hidden="true"></i></button></div></div><div class="hours-chart"><div class="hours-y-axis"><span>10h</span><span>9h</span><span>8h</span><span>7h</span><span>6h</span></div><div class="hours-plot"><div class="hours-grid"><i></i><i></i><i class="target-line"></i><i></i><i></i></div><svg viewBox="0 0 800 220" preserveAspectRatio="none" role="img" aria-label="Average working hours from January to December"><defs><linearGradient id="hoursFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#ff6b00" stop-opacity=".22"/><stop offset="100%" stop-color="#ffb477" stop-opacity=".03"/></linearGradient></defs><path class="hours-fill" d="M0,132 C40,127 65,125 100,126 S155,140 180,137 S235,119 260,121 S315,110 340,110 S395,119 420,115 S475,124 500,124 S555,131 580,125 S635,100 660,101 S715,124 740,121 S780,125 800,126 L800,220 L0,220Z"/><path class="hours-line" d="M0,132 C40,127 65,125 100,126 S155,140 180,137 S235,119 260,121 S315,110 340,110 S395,119 420,115 S475,124 500,124 S555,131 580,125 S635,100 660,101 S715,124 740,121 S780,125 800,126"/><g class="hours-points"><circle cx="0" cy="132" r="4"/><circle cx="73" cy="126" r="4"/><circle cx="145" cy="137" r="4"/><circle cx="218" cy="121" r="4"/><circle cx="291" cy="115" r="4"/><circle cx="364" cy="110" r="4"/><circle cx="436" cy="115" r="4"/><circle cx="509" cy="124" r="4"/><circle cx="582" cy="125" r="4"/><circle cx="655" cy="101" r="4"/><circle cx="727" cy="121" r="4"/><circle cx="800" cy="126" r="4"/></g></svg><div class="hours-x-axis"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div></div></div><div class="hours-footer-summary"><span><i class="summary-dot hours-dot"></i>Average Hours</span><strong>7.9 hrs</strong></div></article>
+
+            <article class="panel attrition-panel"><div class="panel-header"><div><h2>Attrition by Dept.</h2><p>Last 12 months</p></div><button class="attrition-view-all" type="button">View all</button></div><div class="attrition-chart" role="img" aria-label="Attrition by department for the last 12 months"><div class="attrition-row"><span class="attrition-label">Sales</span><div class="attrition-bar-track"><span class="attrition-bar attrition-sales" style="--bar-width: 87.36%"></span></div></div><div class="attrition-row"><span class="attrition-label">Marketing</span><div class="attrition-bar-track"><span class="attrition-bar attrition-marketing" style="--bar-width: 67.39%"></span></div></div><div class="attrition-row"><span class="attrition-label">Operations</span><div class="attrition-bar-track"><span class="attrition-bar attrition-operations" style="--bar-width: 57.41%"></span></div></div><div class="attrition-row"><span class="attrition-label">Engineering</span><div class="attrition-bar-track"><span class="attrition-bar attrition-engineering" style="--bar-width: 37.44%"></span></div></div><div class="attrition-row"><span class="attrition-label">Design</span><div class="attrition-bar-track"><span class="attrition-bar attrition-design" style="--bar-width: 32.86%"></span></div></div><div class="attrition-row"><span class="attrition-label">Finance</span><div class="attrition-bar-track"><span class="attrition-bar attrition-finance" style="--bar-width: 27.04%"></span></div></div><div class="attrition-row"><span class="attrition-label">HR</span><div class="attrition-bar-track"><span class="attrition-bar attrition-hr" style="--bar-width: 22.88%"></span></div></div><div class="attrition-axis" aria-hidden="true"><span>0%</span><span>5%</span><span>10%</span><span>15%</span><span>20%</span><span>25%</span></div></div></article>
+            <article class="panel performance-panel"><div class="panel-header"><div><h2>Perf. Matrix</h2><p>Score distribution</p></div></div><div class="performance-list" role="img" aria-label="Performance scores by department"><div class="performance-row"><span>Engineering</span><div class="performance-track"><i class="performance-fill perf-orange" style="--score: 87%"></i><b class="performance-dot perf-orange-dot" style="--score: 87%"></b></div><strong>87</strong></div><div class="performance-row"><span>Design</span><div class="performance-track"><i class="performance-fill perf-orange" style="--score: 91%"></i><b class="performance-dot perf-orange-dot" style="--score: 91%"></b></div><strong>91</strong></div><div class="performance-row"><span>Sales</span><div class="performance-track"><i class="performance-fill perf-amber" style="--score: 73%"></i><b class="performance-dot perf-amber-dot" style="--score: 73%"></b></div><strong>73</strong></div><div class="performance-row"><span>Marketing</span><div class="performance-track"><i class="performance-fill perf-green" style="--score: 80%"></i><b class="performance-dot perf-green-dot" style="--score: 80%"></b></div><strong>80</strong></div><div class="performance-row"><span>Operations</span><div class="performance-track"><i class="performance-fill perf-pink" style="--score: 68%"></i><b class="performance-dot perf-pink-dot" style="--score: 68%"></b></div><strong>68</strong></div><div class="performance-row"><span>Finance</span><div class="performance-track"><i class="performance-fill perf-teal" style="--score: 84%"></i><b class="performance-dot perf-teal-dot" style="--score: 84%"></b></div><strong>84</strong></div><div class="performance-row"><span>HR</span><div class="performance-track"><i class="performance-fill perf-blue" style="--score: 76%"></i><b class="performance-dot perf-blue-dot" style="--score: 76%"></b></div><strong>76</strong></div></div></article>
+          </section>
+
+          <section class="panel employees-panel" id="employees"><div class="directory-header"><div><h2>Employee Directory</h2><p>Showing 1,284 of 1,284 employees</p></div><div class="directory-actions"><label class="directory-search" for="directorySearch"><i data-lucide="search" aria-hidden="true"></i><input id="directorySearch" type="search" placeholder="Search..." autocomplete="off" /></label><button class="directory-filter" type="button"><i data-lucide="list-filter" aria-hidden="true"></i><span>Filter</span></button></div></div><div class="directory-table-wrap"><table class="directory-table"><thead><tr><th>Employee</th><th>ID</th><th>Department</th><th>Role</th><th>Status</th><th>Location</th><th>Joined</th><th>Salary</th><th>Performance</th><th>Manager</th><th><span class="sr-only">Actions</span></th></tr></thead><tbody><tr><td><div class="directory-employee"><div class="avatar avatar-lavender">EH</div><div><strong>Emery Harris</strong><span>emery.harris@company.io</span></div></div></td><td>EMP1001</td><td>Engineering</td><td>Software Engineer</td><td><span class="directory-status status-contractor">Contractor</span></td><td>Dubai</td><td>2018-11-14</td><td class="salary-cell">$119k</td><td><span class="directory-performance performance-good">Good</span></td><td>Elena Vasquez</td><td><button class="directory-menu" type="button" aria-label="Actions for Emery Harris">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-yellow">SC</div><div><strong>Sidney Chen</strong><span>sidney.chen@company.io</span></div></div></td><td>EMP1002</td><td>Design</td><td>Design Lead</td><td><span class="directory-status status-remote">Remote</span></td><td>Amsterdam</td><td>2018-03-28</td><td class="salary-cell">$206k</td><td><span class="directory-performance performance-average">Average</span></td><td>Elena Vasquez</td><td><button class="directory-menu" type="button" aria-label="Actions for Sidney Chen">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-pink">SN</div><div><strong>Skyler Nakamura</strong><span>skyler.nakamura@company.io</span></div></div></td><td>EMP1003</td><td>Marketing</td><td>Marketing Manager</td><td><span class="directory-status status-leave">On Leave</span></td><td>Dubai</td><td>2022-04-17</td><td class="salary-cell">$125k</td><td><span class="directory-performance performance-below">Below Avg</span></td><td>Elena Vasquez</td><td><button class="directory-menu" type="button" aria-label="Actions for Skyler Nakamura">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-blue">AW</div><div><strong>Avery Wilson</strong><span>avery.wilson@company.io</span></div></div></td><td>EMP1004</td><td>Sales</td><td>Account Executive</td><td><span class="directory-status status-active">Active</span></td><td>Remote</td><td>2020-08-14</td><td class="salary-cell">$149k</td><td><span class="directory-performance performance-good">Good</span></td><td>Priya Sharma</td><td><button class="directory-menu" type="button" aria-label="Actions for Avery Wilson">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-green">HP</div><div><strong>Hayden Patel</strong><span>hayden.patel@company.io</span></div></div></td><td>EMP1005</td><td>Operations</td><td>Project Manager</td><td><span class="directory-status status-active">Active</span></td><td>Sydney</td><td>2018-09-04</td><td class="salary-cell">$199k</td><td><span class="directory-performance performance-below">Below Avg</span></td><td>David Lee</td><td><button class="directory-menu" type="button" aria-label="Actions for Hayden Patel">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-red">TM</div><div><strong>Terry Martin</strong><span>terry.martin@company.io</span></div></div></td><td>EMP1006</td><td>Finance</td><td>FP&amp;A Manager</td><td><span class="directory-status status-active">Active</span></td><td>Tokyo</td><td>2020-10-07</td><td class="salary-cell">$190k</td><td><span class="directory-performance performance-below">Below Avg</span></td><td>Sofia Reyes</td><td><button class="directory-menu" type="button" aria-label="Actions for Terry Martin">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-orange">ST</div><div><strong>Sage Thompson</strong><span>sage.thompson@company.io</span></div></div></td><td>EMP1007</td><td>HR</td><td>Recruiter</td><td><span class="directory-status status-contractor">Contractor</span></td><td>Sydney</td><td>2023-06-20</td><td class="salary-cell">$163k</td><td><span class="directory-performance performance-excellent">Excellent</span></td><td>Marcus Brown</td><td><button class="directory-menu" type="button" aria-label="Actions for Sage Thompson">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-lavender">SD</div><div><strong>Sidney Davis</strong><span>sidney.davis@company.io</span></div></div></td><td>EMP1008</td><td>Engineering</td><td>Tech Lead</td><td><span class="directory-status status-active">Active</span></td><td>Berlin</td><td>2024-02-13</td><td class="salary-cell">$105k</td><td><span class="directory-performance performance-average">Average</span></td><td>Sofia Reyes</td><td><button class="directory-menu" type="button" aria-label="Actions for Sidney Davis">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-yellow">JT</div><div><strong>Jamie Thomas</strong><span>jamie.thomas@company.io</span></div></div></td><td>EMP1009</td><td>Design</td><td>UI Designer</td><td><span class="directory-status status-active">Active</span></td><td>New York</td><td>2021-09-06</td><td class="salary-cell">$197k</td><td><span class="directory-performance performance-average">Average</span></td><td>Marcus Brown</td><td><button class="directory-menu" type="button" aria-label="Actions for Jamie Thomas">•••</button></td></tr><tr><td><div class="directory-employee"><div class="avatar avatar-blue">BA</div><div><strong>Blake Anderson</strong><span>blake.anderson@company.io</span></div></div></td><td>EMP1010</td><td>Marketing</td><td>SEO Analyst</td><td><span class="directory-status status-active">Active</span></td><td>Dubai</td><td>2023-11-24</td><td class="salary-cell">$140k</td><td><span class="directory-performance performance-exceptional">Exceptional</span></td><td>Elena Vasquez</td><td><button class="directory-menu" type="button" aria-label="Actions for Blake Anderson">•••</button></td></tr></tbody></table></div><div class="directory-footer"><span>Page 1 of 129</span><div class="directory-pagination"><button type="button" aria-label="Previous page">‹</button><button class="active" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">…</button><button type="button">129</button><button type="button" aria-label="Next page">›</button></div></div></section>
+
+          <footer class="page-footer">Evero HR workspace <span>•</span> Last synced just now</footer>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="modal-backdrop" id="employeeModal" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-header"><div><p class="eyebrow">People directory</p><h2 id="modalTitle">Add employee</h2></div><button class="icon-button" type="button" id="closeModal" aria-label="Close dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><form id="employeeForm"><label>Full name<input name="name" required placeholder="e.g. Taylor Smith" /></label><label>Work email<input name="email" type="email" required placeholder="name@company.com" /></label><div class="form-grid"><label>Department<select name="department"><option>Engineering</option><option>Design</option><option>Marketing</option><option>Operations</option></select></label><label>Start date<input name="startDate" type="date" required /></label></div><div class="modal-actions"><button class="button button-secondary" type="button" id="cancelModal">Cancel</button><button class="button button-primary" type="submit">Add employee</button></div></form></div></div>
+
+    <script defer src="script.js"></script>
+  </body>
+</html>
