@@ -45,7 +45,7 @@ function renderLocalIcons() {
   document.querySelectorAll('[data-lucide]').forEach((icon) => {
     const svg = document.createElementNS(namespace, 'svg');
     const name = icon.getAttribute('data-lucide');
-    svg.classList.add('lucide');
+    svg.classList.add('lucide', ...icon.classList);
     svg.setAttribute('viewBox', '0 0 24 24');
     svg.setAttribute('fill', 'none');
     svg.setAttribute('stroke', 'currentColor');
@@ -362,7 +362,7 @@ document.querySelectorAll('[data-nav]').forEach((item) => item.addEventListener(
   event.preventDefault();
   document.querySelectorAll('[data-nav]').forEach((navItem) => navItem.classList.remove('active'));
   item.classList.add('active');
-  if (window.innerWidth <= 800) toggleSidebar(false);
+  if (window.innerWidth <= 1024) toggleSidebar(false);
   if (item.dataset.nav !== 'Overview') showToast(`${item.dataset.nav} is ready to explore`);
 }));
 
